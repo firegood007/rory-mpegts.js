@@ -173,15 +173,19 @@ class FetchStreamLoader extends BaseLoader {
 
     abort() {
         this._requestAbort = true;
-
-        if (this._status !== LoaderStatus.kBuffering || !Browser.chrome) {
-            // Chrome may throw Exception-like things here, avoid using if is buffering
-            if (this._abortController) {
-                try {
-                    this._abortController.abort();
-                } catch (e) {}
-            }
+        if (this._abortController) {
+            try {
+                this._abortController.abort();
+            } catch (e) {}
         }
+        // if (this._status !== LoaderStatus.kBuffering || !Browser.chrome) {
+        //     // Chrome may throw Exception-like things here, avoid using if is buffering
+        //     if (this._abortController) {
+        //         try {
+        //             this._abortController.abort();
+        //         } catch (e) {}
+        //     }
+        // }
     }
 
     _pump(reader) {  // ReadableStreamReader
